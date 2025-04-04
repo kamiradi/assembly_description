@@ -59,7 +59,7 @@ directives:
         translation: [0.75, 0, -0.7645]
 - add_model:
     name: hole
-    file: file:///root/.cache/descriptions/asseembly_description/urdf/rectangle_hole.urdf
+    file: file:///root/.cache/descriptions/assembly_description/urdf/rectangle_hole.urdf
 - add_weld:
     parent: world
     child: hole::base_link
