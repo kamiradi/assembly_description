@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="rectangular_hole.obj" />
+          filename="meshes/rectangular_hole.obj" />
       </geometry>
       <material
         name="">

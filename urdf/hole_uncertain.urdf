@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="hole_uncertain.obj" />
+          filename="meshes/hole_uncertain.obj" />
       </geometry>
       <material
         name="">
