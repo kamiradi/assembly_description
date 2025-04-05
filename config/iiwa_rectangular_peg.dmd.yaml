@@ -21,7 +21,7 @@ directives:
         rotation: !Rpy { deg: [-90, 0, -90]}
 - add_model:
     name: peg_control
-    file: file:///root/workspace/model/rectangle_peg.urdf
+    file: file:////root/.cache/descriptions/assembly_description/urdf/rectangle_peg.urdf
 - add_weld:
     parent: iiwa_controller::ati_sensor
     child: peg_control::base_link
