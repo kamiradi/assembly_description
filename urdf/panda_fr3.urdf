@@ -16,13 +16,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link0.obj"/>
+        <mesh filename="./meshes/link0.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link0_simple.obj"/>
+        <mesh filename="./meshes/link0_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -40,13 +40,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link1.obj"/>
+        <mesh filename="./meshes/link1.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link1_simple.obj"/>
+        <mesh filename="./meshes/link1_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -71,13 +71,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link2.obj"/>
+        <mesh filename="./meshes/link2.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link2_simple.obj"/>
+        <mesh filename="./meshes/link2_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -102,13 +102,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link3.obj"/>
+        <mesh filename="./meshes/link3.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link3_simple.obj"/>
+        <mesh filename="./meshes/link3_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -133,13 +133,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link4.obj"/>
+        <mesh filename="./meshes/link4.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link4_simple.obj"/>
+        <mesh filename="./meshes/link4_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -164,13 +164,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link5.obj"/>
+        <mesh filename="./meshes/link5.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link5_simple.obj"/>
+        <mesh filename="./meshes/link5_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -195,13 +195,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link6.obj"/>
+        <mesh filename="./meshes/link6.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link6_simple.obj"/>
+        <mesh filename="./meshes/link6_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -226,13 +226,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link7.obj"/>
+        <mesh filename="./meshes/link7.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/link7_simple.obj"/>
+        <mesh filename="./meshes/link7_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -346,13 +346,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/hand.obj"/>
+        <mesh filename="./meshes/hand.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/hand_simple.obj"/>
+        <mesh filename="./meshes/hand_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -370,13 +370,13 @@
     <visual>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/finger.obj"/>
+        <mesh filename="./meshes/finger.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 0"/>
       <geometry>
-        <mesh filename="../meshes/finger_simple.obj"/>
+        <mesh filename="./meshes/finger_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
@@ -394,13 +394,13 @@
     <visual>
       <origin rpy="1.57079632679 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/finger.obj"/>
+        <mesh filename="./meshes/finger.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57079632679 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/finger_simple.obj"/>
+        <mesh filename="./meshes/finger_simple.obj"/>
       </geometry>
       <drake:proximity_properties>
         <drake:rigid_hydroelastic/>
