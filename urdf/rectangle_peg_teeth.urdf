@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot
+  name="peg">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-1.3347E-17 -5.9891E-18 -0.040525"
+        rpy="0 0 0" />
+      <mass
+        value="0.49468" />
+      <inertia
+        ixx="0.00053802"
+        ixy="-7.6927E-20"
+        ixz="3.9703E-20"
+        iyy="0.00053802"
+        iyz="2.8467E-21"
+        izz="0.00054518" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/rectangular_peg_teeth.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.49 0.27 0.27 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/rectangular_peg.obj_teeth" />
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:mesh_resolution_hint value="0.1"/>
+        <drake:hydroelastic_modulus value="5e7"/>
+        <drake:hunt_crossley_dissipation value="1.25"/>
+      </drake:proximity_properties>
+    </collision>
+  </link>
+</robot>
