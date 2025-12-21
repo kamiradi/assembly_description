@@ -1,0 +1,59 @@
+directives:
+- add_model:
+    name: iiwa
+    file: package://drake_models/iiwa_description/sdf/iiwa14_no_collision.sdf
+    default_joint_positions:
+        iiwa_joint_1: [-2.70259771]
+        iiwa_joint_2: [-0.70]
+        iiwa_joint_3: [-0.57397568]
+        iiwa_joint_4: [1.86064877]
+        iiwa_joint_5: [0.65323578]
+        iiwa_joint_6: [-0.68678464]
+        iiwa_joint_7: [-0.52174789]
+- add_weld:
+    parent: world
+    child: iiwa::iiwa_link_0
+- add_frame:
+    name: iiwa::ati_sensor
+    X_PF:
+        base_frame: iiwa::iiwa_link_7
+        translation: [0.0, 0.0, 0.075]
+        rotation: !Rpy { deg: [-90, 0, -90]}
+- add_model:
+    name: peg
+    file: file:////root/.cache/descriptions/assembly_description/urdf/arch_peg.urdf
+- add_model:
+    name: camera
+    file: file:///root/.cache/descriptions/assembly_description/sdf/camera_box.sdf
+- add_weld:
+    parent: peg::base_link
+    child: camera::base
+    X_PC:
+        translation: [0.0, 0.0, 0.05]
+        rotation: !Rpy { deg: [90, 180, 0]}
+- add_weld:
+    parent: iiwa::ati_sensor
+    child: peg::base_link
+    # X_PC:
+    #     translation: [0.0, 0.0, 0.075]
+    #     rotation: !Rpy { deg: [-90, 0, -90]}
+- add_frame:
+    name: peg::peg_origin
+    X_PF:
+        base_frame: peg::base_link
+- add_model:
+    name: robot_table
+    file: package://drake/examples/kuka_iiwa_arm/models/table/extra_heavy_duty_table_surface_only_collision.sdf
+- add_weld:
+    parent: world
+    child: robot_table::link
+    X_PC:
+        translation: [0, 0, -0.7645]
+- add_model:
+    name: work_table
+    file: package://drake/examples/kuka_iiwa_arm/models/table/extra_heavy_duty_table_surface_only_collision.sdf
+- add_weld:
+    parent: world
+    child: work_table::link
+    X_PC:
+        translation: [0.75, 0, -0.7645]

@@ -57,27 +57,3 @@ directives:
     child: work_table::link
     X_PC:
         translation: [0.75, 0, -0.7645]
-- add_model:
-    name: hole
-    file: file:///root/.cache/descriptions/assembly_description/urdf/rectangle_hole_teeth.urdf
-- add_weld:
-    parent: world
-    child: hole::base_link
-    X_PC:
-        translation: [0.55, 0, 0.00]
-- add_frame:
-    name: hole::hole_frame
-    X_PF:
-        base_frame: hole::base_link
-        translation: [0, 0.0, 0.02]
-        rotation: !Rpy{ deg: [-90, 0, 90]}
-        # rotation: !Rpy { deg: [90, 0, 90]}
-# cameras:
-#     main_camera:
-#         name: wrist_camera
-#         depth: True
-#         X_PB:
-#             base_frame: camera::base
-# model_drivers:
-#     iiwa: !IiwaDriver
-#         control_mode: position_only
