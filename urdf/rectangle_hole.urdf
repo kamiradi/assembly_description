@@ -37,7 +37,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/rectangular_hole.obj" />
+          filename="meshes/rectangular_hole.vtk" />
       </geometry>
       <drake:proximity_properties>
         <drake:compliant_hydroelastic/>
