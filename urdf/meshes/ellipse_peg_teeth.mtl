@@ -1,2 +1,12 @@
-# Blender 5.0.1 MTL File: 'ellipse_teeth.blend'
+# Blender 5.1.0 MTL File: 'ellipse_peg_teeth.blend'
 # www.blender.org
+
+newmtl Material.001
+Ns 250.000000
+Ka 0.192308 0.192308 0.192308
+Kd 0.350457 0.350457 0.350457
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
