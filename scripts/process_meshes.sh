@@ -26,7 +26,7 @@ for name in "${OBJECTS[@]}"; do
     echo "=== Processing: $name ==="
 
     echo "  [1/3] Tetrahedralizing $obj"
-    "$FTETWILD" -i "$obj" -o "$TEMP_DIR/output_tetmesh.msh"
+    "$FTETWILD" -i "$obj" -o "$TEMP_DIR/output_tetmesh.msh" -l 0.1
 
     echo "  [2/3] Converting .msh -> .vtk"
     meshio convert "$TEMP_DIR/output_tetmesh.msh" "$TEMP_DIR/output_tetmesh.vtk"
