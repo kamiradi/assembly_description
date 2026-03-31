@@ -21,10 +21,10 @@ directives:
         rotation: !Rpy { deg: [-90, 0, -90]}
 - add_model:
     name: peg
-    file: file:////root/.cache/descriptions/assembly_description/urdf/arch_peg.urdf
+    file: package://assembly_description/urdf/arch_peg.urdf
 - add_model:
     name: camera
-    file: file:///root/.cache/descriptions/assembly_description/sdf/camera_box.sdf
+    file: package://assembly_description/sdf/camera_box.sdf
 - add_weld:
     parent: peg::base_link
     child: camera::base
