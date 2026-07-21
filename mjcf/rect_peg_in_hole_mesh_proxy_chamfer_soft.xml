@@ -1,0 +1,182 @@
+<mujoco model="rect_peg_in_hole_mesh_proxy_chamfer_soft">
+  <!--
+    Chamfered proxy-collision version of rect_peg_in_hole_mesh_soft.xml.
+
+    The visual geometry still comes from the rectangular peg/hole OBJ files.
+    Collision uses the shaft-only peg proxy plus a primitive approximation of
+    the chamfered hole opening: four wall boxes and four rotated chamfer boxes.
+
+    This tests whether replacing sharp 90-degree proxy corners with short
+    chamfer facets reduces the centroid jumps seen with the four-box proxy.
+  -->
+
+  <compiler angle="radian"
+            meshdir="../urdf/meshes"/>
+
+  <option timestep="0.005"
+          solver="Newton"
+          iterations="10"
+          ls_iterations="50"
+          gravity="0 0 0"
+          cone="pyramidal"/>
+
+  <custom>
+    <numeric data="56" name="max_contact_points"/>
+    <numeric data="56" name="max_geom_pairs"/>
+  </custom>
+
+  <visual>
+    <global offwidth="1280" offheight="900"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.65 0.65 0.65" specular="0.1 0.1 0.1"/>
+  </visual>
+
+  <asset>
+    <mesh name="rectangular_peg_mesh" file="rectangular_peg.obj"/>
+    <mesh name="rectangular_hole_mesh" file="rectangular_hole.obj"/>
+
+    <texture name="checker" type="2d" builtin="checker"
+             width="512" height="512"
+             rgb1="0.92 0.92 0.88" rgb2="0.68 0.72 0.76"/>
+    <material name="checker_mat" texture="checker" texrepeat="10 10" reflectance="0.15"/>
+  </asset>
+
+  <default>
+    <geom condim="3"
+          friction="1.0 0.005 0.0001"
+          solref="0.03 1"
+          solimp="0 0.9 0.01 0.5 2"/>
+  </default>
+
+  <worldbody>
+    <light name="key_light" pos="0.35 -0.55 1.0" dir="-0.35 0.55 -1"/>
+    <geom name="floor"
+          type="plane"
+          pos="0 0 -0.026"
+          size="0.5 0.5 0.01"
+          contype="0"
+          conaffinity="0"
+          material="checker_mat"/>
+
+    <!-- Visual-only OBJ. Collision is supplied by the four proxy boxes below. -->
+    <geom name="hole_visual"
+          type="mesh"
+          mesh="rectangular_hole_mesh"
+          pos="0 0 0"
+          contype="0"
+          conaffinity="0"
+          rgba="0.68 0.73 0.82 0.35"/>
+
+    <!--
+      rectangular_hole.obj bounds:
+      - outer half-widths: x=0.04 m, y=0.04 m
+      - maximum opening envelope: x=0.0162 m, y=0.0252 m
+      - height: z=0.05 m
+    -->
+    <geom name="hole_proxy_pos_x_collision"
+          type="box"
+          pos="0.0281 0 0.025"
+          size="0.0119 0.04 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.14 0.25 0.55 0.35"/>
+    <geom name="hole_proxy_neg_x_collision"
+          type="box"
+          pos="-0.0281 0 0.025"
+          size="0.0119 0.04 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.14 0.25 0.55 0.35"/>
+    <geom name="hole_proxy_pos_y_collision"
+          type="box"
+          pos="0 0.0326 0.025"
+          size="0.0162 0.0074 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.14 0.25 0.55 0.35"/>
+    <geom name="hole_proxy_neg_y_collision"
+          type="box"
+          pos="0 -0.0326 0.025"
+          size="0.0162 0.0074 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.14 0.25 0.55 0.35"/>
+
+    <!--
+      Simple diagonal facets approximating the OBJ's chamfered inner corners.
+      These intentionally overlap the main wall boxes slightly; because all
+      geoms are fixed world geoms, the overlap is only a collision proxy detail
+      for peg contacts.
+    -->
+    <geom name="hole_proxy_chamfer_pos_x_pos_y_collision"
+          type="box"
+          pos="0.01745 0.02645 0.025"
+          euler="0 0 -0.7853981633974483"
+          size="0.0032 0.0012 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.10 0.35 0.65 0.45"/>
+    <geom name="hole_proxy_chamfer_neg_x_pos_y_collision"
+          type="box"
+          pos="-0.01745 0.02645 0.025"
+          euler="0 0 0.7853981633974483"
+          size="0.0032 0.0012 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.10 0.35 0.65 0.45"/>
+    <geom name="hole_proxy_chamfer_pos_x_neg_y_collision"
+          type="box"
+          pos="0.01745 -0.02645 0.025"
+          euler="0 0 0.7853981633974483"
+          size="0.0032 0.0012 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.10 0.35 0.65 0.45"/>
+    <geom name="hole_proxy_chamfer_neg_x_neg_y_collision"
+          type="box"
+          pos="-0.01745 -0.02645 0.025"
+          euler="0 0 -0.7853981633974483"
+          size="0.0032 0.0012 0.025"
+          contype="1"
+          conaffinity="1"
+          rgba="0.10 0.35 0.65 0.45"/>
+
+    <body name="peg" pos="0.006 0 0.23" euler="0 0 1.5707963267948966">
+      <joint name="insertion_slide" type="slide" axis="0 0 1"/>
+
+      <!-- Visual-only OBJ, with the same rotation used by the mesh scene. -->
+      <geom name="peg_visual"
+            type="mesh"
+            mesh="rectangular_peg_mesh"
+            euler="1.5707963267948966 0 0"
+            density="0"
+            contype="0"
+            conaffinity="0"
+            rgba="0.95 0.58 0.44 0.35"/>
+
+      <!--
+        Only the lower shaft of rectangular_peg.obj should be used for contact:
+        the full OBJ bounds include the wider top mounting feature, which is not
+        the part that inserts into the hole. In raw OBJ coordinates, the lower
+        shaft spans roughly x=[-0.025, 0.025], z=[-0.016, 0.016], and
+        y=[-0.15, 0.0]. The mesh-scene geom rotation maps raw y onto the
+        insertion axis, so the body-frame proxy is centered at z=-0.075.
+      -->
+      <geom name="peg_proxy_collision"
+            type="box"
+            pos="0 0 -0.075"
+            size="0.025 0.016 0.075"
+            mass="0.49468"
+            contype="1"
+            conaffinity="1"
+            rgba="0.85 0.18 0.12 0.45"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <velocity name="insertion_velocity_servo"
+              joint="insertion_slide"
+              kv="20"
+              ctrllimited="true"
+              ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>

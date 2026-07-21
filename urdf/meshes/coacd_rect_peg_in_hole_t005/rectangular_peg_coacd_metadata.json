@@ -1,0 +1,86 @@
+{
+  "input": "/home/carnott/Documents/github/mjx-grad/assembly_description-master/urdf/meshes/rectangular_peg.obj",
+  "output_dir": "/home/carnott/Documents/github/mjx-grad/assembly_description-master/urdf/meshes/coacd_rect_peg_in_hole_t005",
+  "prefix": "rectangular_peg_coacd",
+  "threshold": 0.005,
+  "real_metric": true,
+  "seed": 0,
+  "num_parts": 15,
+  "parts": [
+    {
+      "file": "rectangular_peg_coacd_000.obj",
+      "vertices": 150,
+      "faces": 296
+    },
+    {
+      "file": "rectangular_peg_coacd_001.obj",
+      "vertices": 155,
+      "faces": 306
+    },
+    {
+      "file": "rectangular_peg_coacd_002.obj",
+      "vertices": 102,
+      "faces": 200
+    },
+    {
+      "file": "rectangular_peg_coacd_003.obj",
+      "vertices": 153,
+      "faces": 302
+    },
+    {
+      "file": "rectangular_peg_coacd_004.obj",
+      "vertices": 213,
+      "faces": 422
+    },
+    {
+      "file": "rectangular_peg_coacd_005.obj",
+      "vertices": 92,
+      "faces": 180
+    },
+    {
+      "file": "rectangular_peg_coacd_006.obj",
+      "vertices": 220,
+      "faces": 436
+    },
+    {
+      "file": "rectangular_peg_coacd_007.obj",
+      "vertices": 232,
+      "faces": 460
+    },
+    {
+      "file": "rectangular_peg_coacd_008.obj",
+      "vertices": 166,
+      "faces": 328
+    },
+    {
+      "file": "rectangular_peg_coacd_009.obj",
+      "vertices": 178,
+      "faces": 352
+    },
+    {
+      "file": "rectangular_peg_coacd_010.obj",
+      "vertices": 310,
+      "faces": 616
+    },
+    {
+      "file": "rectangular_peg_coacd_011.obj",
+      "vertices": 97,
+      "faces": 190
+    },
+    {
+      "file": "rectangular_peg_coacd_012.obj",
+      "vertices": 141,
+      "faces": 278
+    },
+    {
+      "file": "rectangular_peg_coacd_013.obj",
+      "vertices": 119,
+      "faces": 234
+    },
+    {
+      "file": "rectangular_peg_coacd_014.obj",
+      "vertices": 223,
+      "faces": 442
+    }
+  ]
+}

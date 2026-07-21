@@ -1,0 +1,107 @@
+<mujoco model="rect_peg_in_hole_iiwa_mesh_proxy_soft">
+  <!--
+    KUKA iiwa14 version of rect_peg_in_hole_mesh_proxy_soft.xml.
+
+    The rectangular hole is a movable body so inferred_hole_pose can perturb its
+    planar pose. The rectangular peg is rigidly attached to the iiwa end
+    effector in iiwa14_peg.xml. Robot collision geoms are disabled; the contact
+    signal of interest is the peg proxy against the hole proxy.
+  -->
+
+  <include file="iiwa14_peg.xml"/>
+
+  <statistic center="0.05 0 0.35" extent="1.2"/>
+
+  <visual>
+    <global offwidth="1280" offheight="900" azimuth="-120" elevation="-20"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.65 0.65 0.65" specular="0.1 0.1 0.1"/>
+  </visual>
+
+  <asset>
+    <mesh name="rectangular_hole_mesh" file="rectangular_hole.obj"/>
+
+    <texture name="checker" type="2d" builtin="checker"
+             width="512" height="512"
+             rgb1="0.92 0.92 0.88" rgb2="0.68 0.72 0.76"/>
+    <material name="checker_mat" texture="checker" texrepeat="10 10" reflectance="0.15"/>
+  </asset>
+
+  <worldbody>
+    <light name="key_light" pos="0.35 -0.55 1.0" dir="-0.35 0.55 -1"/>
+    <!--
+      Free world-frame camera for rendering the inverse_contact depth
+      likelihood from caller-supplied extrinsics. Its pose is a placeholder;
+      functions.rendering overrides model.cam_pos / model.cam_quat per frame
+      from the provided (n_render, 4, 4) camera_extrinsics.
+    -->
+    <camera name="extern" mode="fixed" pos="0 0 1" fovy="58"/>
+    <geom name="floor"
+          type="plane"
+          pos="0 0 -0.026"
+          size="0.8 0.8 0.01"
+          contype="0"
+          conaffinity="0"
+          material="checker_mat"/>
+
+    <body name="hole" pos="0.15 0 0" euler="0 0 1.5707963267948966">
+      <geom name="hole_visual"
+            type="mesh"
+            mesh="rectangular_hole_mesh"
+            pos="0 0 0"
+            contype="0"
+            conaffinity="0"
+            rgba="0.68 0.73 0.82 0.35"/>
+
+      <!--
+        rectangular_hole.obj bounds:
+        - outer half-widths: x=0.04 m, y=0.04 m
+        - maximum opening envelope: x=0.0162 m, y=0.0252 m
+        - height: z=0.05 m
+      -->
+      <geom name="hole_proxy_pos_x_collision"
+            type="box"
+            pos="0.0281 0 0.025"
+            size="0.0119 0.04 0.025"
+            contype="1"
+            conaffinity="1"
+            condim="3"
+            friction="1.0 0.005 0.0001"
+            solref="0.03 1"
+            solimp="0 0.9 0.01 0.5 2"
+            rgba="0.14 0.25 0.55 0.35"/>
+      <geom name="hole_proxy_neg_x_collision"
+            type="box"
+            pos="-0.0281 0 0.025"
+            size="0.0119 0.04 0.025"
+            contype="1"
+            conaffinity="1"
+            condim="3"
+            friction="1.0 0.005 0.0001"
+            solref="0.03 1"
+            solimp="0 0.9 0.01 0.5 2"
+            rgba="0.14 0.25 0.55 0.35"/>
+      <geom name="hole_proxy_pos_y_collision"
+            type="box"
+            pos="0 0.0326 0.025"
+            size="0.0162 0.0074 0.025"
+            contype="1"
+            conaffinity="1"
+            condim="3"
+            friction="1.0 0.005 0.0001"
+            solref="0.03 1"
+            solimp="0 0.9 0.01 0.5 2"
+            rgba="0.14 0.25 0.55 0.35"/>
+      <geom name="hole_proxy_neg_y_collision"
+            type="box"
+            pos="0 -0.0326 0.025"
+            size="0.0162 0.0074 0.025"
+            contype="1"
+            conaffinity="1"
+            condim="3"
+            friction="1.0 0.005 0.0001"
+            solref="0.03 1"
+            solimp="0 0.9 0.01 0.5 2"
+            rgba="0.14 0.25 0.55 0.35"/>
+    </body>
+  </worldbody>
+</mujoco>
