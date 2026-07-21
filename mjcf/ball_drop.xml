@@ -1,0 +1,41 @@
+<mujoco model="ball_drop">
+  <option timestep="0.005" solver="Newton" iterations="10" gravity="0 0 -9.81"/>
+
+  <visual>
+    <global offwidth="1280" offheight="900"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.65 0.65 0.65" specular="0.1 0.1 0.1"/>
+  </visual>
+
+  <asset>
+    <texture name="checker" type="2d" builtin="checker"
+             width="512" height="512"
+             rgb1="0.92 0.92 0.88" rgb2="0.68 0.72 0.76"/>
+    <material name="checker_mat" texture="checker" texrepeat="10 10" reflectance="0.15"/>
+  </asset>
+
+  <worldbody>
+    <light name="key_light" pos="0.4 -0.6 1.2" dir="-0.4 0.6 -1"/>
+    <geom name="floor"
+          type="plane"
+          pos="0 0 -0.025"
+          size="1.2 1.2 0.01"
+          contype="0"
+          conaffinity="0"
+          material="checker_mat"/>
+
+    <geom name="plate"
+          type="box"
+          pos="0 0 0"
+          size="0.5 0.5 0.025"
+          rgba="0.72 0.76 0.82 1"/>
+
+    <body name="ball" pos="0 0 0.2">
+      <joint name="z_slide" type="slide" axis="0 0 1"/>
+      <geom name="ball_geom"
+            type="sphere"
+            size="0.1"
+            mass="1"
+            rgba="0.95 0.55 0.42 1"/>
+    </body>
+  </worldbody>
+</mujoco>

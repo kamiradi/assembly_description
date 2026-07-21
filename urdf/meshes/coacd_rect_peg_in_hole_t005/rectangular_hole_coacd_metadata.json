@@ -1,0 +1,36 @@
+{
+  "input": "/home/carnott/Documents/github/mjx-grad/assembly_description-master/urdf/meshes/rectangular_hole.obj",
+  "output_dir": "/home/carnott/Documents/github/mjx-grad/assembly_description-master/urdf/meshes/coacd_rect_peg_in_hole_t005",
+  "prefix": "rectangular_hole_coacd",
+  "threshold": 0.005,
+  "real_metric": true,
+  "seed": 0,
+  "num_parts": 5,
+  "parts": [
+    {
+      "file": "rectangular_hole_coacd_000.obj",
+      "vertices": 62,
+      "faces": 120
+    },
+    {
+      "file": "rectangular_hole_coacd_001.obj",
+      "vertices": 61,
+      "faces": 118
+    },
+    {
+      "file": "rectangular_hole_coacd_002.obj",
+      "vertices": 67,
+      "faces": 130
+    },
+    {
+      "file": "rectangular_hole_coacd_003.obj",
+      "vertices": 59,
+      "faces": 114
+    },
+    {
+      "file": "rectangular_hole_coacd_004.obj",
+      "vertices": 46,
+      "faces": 88
+    }
+  ]
+}

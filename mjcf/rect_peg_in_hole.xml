@@ -1,0 +1,129 @@
+<mujoco model="rect_peg_in_hole">
+  <!--
+    Simplified MJX reproduction of assembly_description/config/assembly_rect.dmd.yaml.
+
+    This is intentionally primitive-collision-based rather than a direct mesh
+    conversion: MJX mesh collisions are convex-style, while the Drake hole asset
+    is a nonconvex hydroelastic mesh. Four fixed collision boxes make the
+    rectangular hole explicit and easy to compare/debug.
+
+    MuJoCo note:
+    - <geom> elements are collision geoms by default.
+    - Colliding geoms below are named *_collision and explicitly set
+      contype/conaffinity so this is obvious in the XML.
+
+    Coordinate convention for this reduced test:
+    - insertion axis: world z
+    - qvel index 0: peg insertion velocity along z
+    - tracked body: "peg"
+  -->
+
+  <option timestep="0.005"
+          solver="Newton"
+          iterations="10"
+          ls_iterations="50"
+          gravity="0 0 0"
+          cone="pyramidal"/>
+
+  <visual>
+    <global offwidth="1280" offheight="900"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.65 0.65 0.65" specular="0.1 0.1 0.1"/>
+  </visual>
+
+  <asset>
+    <texture name="checker" type="2d" builtin="checker"
+             width="512" height="512"
+             rgb1="0.92 0.92 0.88" rgb2="0.68 0.72 0.76"/>
+    <material name="checker_mat" texture="checker" texrepeat="10 10" reflectance="0.15"/>
+  </asset>
+
+  <default>
+    <geom condim="3"
+          friction="1.0 0.005 0.0001"
+          solref="0.01 1"
+          solimp="0.9 0.95 0.001"/>
+  </default>
+
+  <worldbody>
+    <light name="key_light" pos="0.35 -0.55 1.0" dir="-0.35 0.55 -1"/>
+    <geom name="floor"
+          type="plane"
+          pos="0 0 -0.026"
+          size="0.5 0.5 0.01"
+          contype="0"
+          conaffinity="0"
+          material="checker_mat"/>
+
+    <!-- Work surface under the socket. -->
+    <geom name="table_collision"
+          type="box"
+          pos="0 0 -0.0125"
+          size="0.16 0.16 0.0125"
+          contype="1"
+          conaffinity="1"
+          rgba="0.78 0.80 0.82 1"/>
+
+    <!-- Four walls around an 80 mm x 80 mm opening, 60 mm tall. -->
+    <geom name="hole_wall_pos_x_collision"
+          type="box"
+          pos="0.05 0 0.03"
+          size="0.01 0.06 0.03"
+          contype="1"
+          conaffinity="1"
+          rgba="0.68 0.73 0.82 1"/>
+    <geom name="hole_wall_neg_x_collision"
+          type="box"
+          pos="-0.05 0 0.03"
+          size="0.01 0.06 0.03"
+          contype="1"
+          conaffinity="1"
+          rgba="0.68 0.73 0.82 1"/>
+    <geom name="hole_wall_pos_y_collision"
+          type="box"
+          pos="0 0.05 0.03"
+          size="0.04 0.01 0.03"
+          contype="1"
+          conaffinity="1"
+          rgba="0.68 0.73 0.82 1"/>
+    <geom name="hole_wall_neg_y_collision"
+          type="box"
+          pos="0 -0.05 0.03"
+          size="0.04 0.01 0.03"
+          contype="1"
+          conaffinity="1"
+          rgba="0.68 0.73 0.82 1"/>
+
+    <!--
+      Peg dimensions approximate the rectangular peg mesh:
+      cross-section ~71 mm, length 180 mm.
+
+      The 6 mm x-offset makes side contact with the 80 mm opening when the peg
+      enters the socket, while the one-DOF slide joint keeps the diagnostic
+      scalar and gradient easy to interpret.
+    -->
+    <body name="peg" pos="0.006 0 0.17">
+      <joint name="insertion_slide" type="slide" axis="0 0 1"/>
+      <geom name="peg_collision"
+            type="box"
+            size="0.0355 0.0355 0.09"
+            mass="0.49468"
+            contype="1"
+            conaffinity="1"
+            rgba="0.95 0.58 0.44 1"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <!--
+      Velocity servo for the one-DOF insertion joint.
+
+      This lets run.py command contact speed as a control input while MuJoCo's
+      contact solver still determines the realized motion under contact.
+    -->
+    <velocity name="insertion_velocity_servo"
+              joint="insertion_slide"
+              kv="20"
+              ctrllimited="true"
+              ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>

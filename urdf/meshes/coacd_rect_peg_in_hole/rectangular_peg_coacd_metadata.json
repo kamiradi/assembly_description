@@ -1,0 +1,16 @@
+{
+  "input": "/home/carnott/Documents/github/mjx-grad/assembly_description-master/urdf/meshes/rectangular_peg.obj",
+  "output_dir": "/home/carnott/Documents/github/mjx-grad/assembly_description-master/urdf/meshes/coacd_rect_peg_in_hole",
+  "prefix": "rectangular_peg_coacd",
+  "threshold": 0.05,
+  "real_metric": true,
+  "seed": 0,
+  "num_parts": 1,
+  "parts": [
+    {
+      "file": "rectangular_peg_coacd_000.obj",
+      "vertices": 809,
+      "faces": 1614
+    }
+  ]
+}
