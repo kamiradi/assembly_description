@@ -16,10 +16,46 @@ def load_mesh(path: Path) -> trimesh.Trimesh:
     return mesh
 
 
-def decompose(mesh: trimesh.Trimesh, threshold: float = 0.05) -> list[trimesh.Trimesh]:
+def decompose(mesh: trimesh.Trimesh, threshold: float = 0.05,
+              preprocess_resolution: int = 50, preprocess_mode: str = "auto") -> list[trimesh.Trimesh]:
     coacd_mesh = coacd.Mesh(mesh.vertices, mesh.faces)
-    parts = coacd.run_coacd(coacd_mesh, threshold=threshold)
+    parts = coacd.run_coacd(coacd_mesh, threshold=threshold,
+                            preprocess_mode=preprocess_mode,
+                            preprocess_resolution=preprocess_resolution)
     return [trimesh.Trimesh(vertices=v, faces=f) for v, f in parts]
+
+
+def batch() -> None:
+    """Non-interactive decomposition for scripted parameter sweeps.
+
+    Usage:
+        coacd_collision.py batch <mesh.obj> <out_dir> <prefix> \
+            <threshold> <preprocess_resolution> [preprocess_mode]
+
+    Writes <out_dir>/<prefix>_convex_coll_NNN.obj (clearing any existing ones).
+    """
+    mesh_path = Path(sys.argv[2])
+    out_dir = Path(sys.argv[3])
+    prefix = sys.argv[4]
+    threshold = float(sys.argv[5])
+    pre_res = int(sys.argv[6])
+    pre_mode = sys.argv[7] if len(sys.argv) > 7 else "auto"
+
+    try:
+        coacd.set_log_level("error")
+    except Exception:
+        pass
+
+    mesh = load_mesh(mesh_path)
+    parts = decompose(mesh, threshold=threshold,
+                      preprocess_resolution=pre_res, preprocess_mode=pre_mode)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for old in out_dir.glob(f"{prefix}_convex_coll_*.obj"):
+        old.unlink()
+    for i, part in enumerate(parts):
+        part.export(str(out_dir / f"{prefix}_convex_coll_{i:03d}.obj"))
+    print(f"[batch] {mesh_path.name}: threshold={threshold} preprocess_resolution={pre_res} "
+          f"mode={pre_mode} -> {len(parts)} parts written to {out_dir}")
 
 
 def random_colors(n: int) -> list[list[int]]:
@@ -70,6 +106,10 @@ def visualise(mesh_path: Path, threshold: float = 0.05) -> list[trimesh.Trimesh]
 
 
 def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] == "batch":
+        batch()
+        return
+
     default_mesh = (
         Path(__file__).parent.parent / "urdf" / "meshes" / "arch_hole.obj"
     )
